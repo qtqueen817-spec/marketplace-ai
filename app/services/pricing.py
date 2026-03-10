@@ -1,19 +1,19 @@
-from typing import List, Optional
+from typing import List
+from app.models import Item  # Assuming your SQLAlchemy model is named Item
 
-# This function acts as your 'AI' pricing assistant
-def calculate_suggested_price(category: str, db_items: list):
-    # 1. Filter the database for items in the same category
-    matching_prices = [item.price for item in db_items if item.category == category]
+def calculate_suggested_price(category: str, db_items: List[Item]):
+    # Filter items that match the category
+    matching_items = [item.price for item in db_items if item.category == category]
     
-    if not matching_prices:
-        return None  # Return None if we don't have enough data yet
+    if not matching_items:
+        return None  # No data yet to make a suggestion
     
-    # 2. Calculate statistical markers
-    avg_price = sum(matching_prices) / len(matching_prices)
+    # Calculate the average price
+    avg_price = sum(matching_items) / len(matching_items)
     
     return {
         "suggested_price": round(avg_price, 2),
-        "item_count": len(matching_prices),
-        "market_high": max(matching_prices),
-        "market_low": min(matching_prices)
+        "data_points": len(matching_items),
+        "min_price": min(matching_items),
+        "max_price": max(matching_items)
     }
