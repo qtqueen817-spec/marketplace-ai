@@ -9,3 +9,5 @@ scikit-learn
 httpx
 python-jose[cryptography]
 passlib[bcrypt]
+torch
+transformers
