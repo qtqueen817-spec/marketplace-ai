@@ -69,3 +69,21 @@ If you wish to contribute to this project, please follow the guidelines below:
 5. **Open a Pull Request**
 
 Thank you for contributing!
+# 🚀 Marketplace AI Backend
+
+An asynchronous FastAPI backend featuring AI-driven price suggestions and image-based categorization.
+
+## 🧠 AI Features
+- **Smart Categorization**: Upload a photo, and the backend identifies if it's Electronics, Fashion, or Furniture.
+- **Price Intelligence**: Automatically calculates fair market value based on historical database averages.
+
+## 🛠️ API Endpoints for Frontend
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `POST` | `/auth/register` | Create a new account & get a JWT token. |
+| `POST` | `/items/smart-list` | Upload an image to auto-fill category and price. |
+| `GET` | `/items/price-check/{cat}` | Get real-time market data for a category. |
+
+## 📦 Quick Start
+1. `docker build -t marketplace-ai .`
+2. `docker run -p 80:80 marketplace-ai`
