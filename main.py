@@ -1,19 +1,11 @@
-from app.core.security import get_password_hash, create_access_token
-
-# Mock User DB
-users_db = {}
-
-class UserSignup(BaseModel):
-    username: str
-    password: str
-
-@app.post("/auth/register")
-async def register(user: UserSignup):
-    if user.username in users_db:
-        return {"error": "User already exists"}
+@app.post("/items")
+async def create_item_for_user(item: ItemCreate, current_user: User = Depends(get_current_user)):
+    # The item is now tied to the logged-in user
+    new_item = Item(**item.dict(), owner_id=current_user.id)
     
-    hashed_pw = get_password_hash(user.password)
-    users_db[user.username] = {"username": user.username, "password": hashed_pw}
+    # AI Logic: You can still trigger your price suggestion here!
+    # suggestion = calculate_suggested_price(item.category, db_items)
     
-    token = create_access_token({"sub": user.username})
-    return {"message": "User created", "access_token": token, "token_type": "bearer"}
+    db.add(new_item)
+    db.commit()
+    return {"message": "Item posted to your profile!", "item": new_item}
