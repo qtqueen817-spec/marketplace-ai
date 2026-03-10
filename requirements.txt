@@ -1,6 +1,9 @@
 fastapi
-uvicorn
-python-dotenv
-sqlalchemy
+uvicorn[standard]
 pydantic
-aiohttp
+# Machine Learning & Data
+numpy
+pandas
+scikit-learn
+# Optional: for later AI API calls
+httpx
