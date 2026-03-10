@@ -1,0 +1,23 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+MANIFEST
+
+# Virtual environment
+venv/
+.env
+
+# FastAPI specific
+instance/
+*.sqlite3
+
+# log files
+*.log
