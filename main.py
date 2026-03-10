@@ -1,7 +1,7 @@
 from app.services.vision import identify_item_from_image
 from app.services.pricing import calculate_suggested_price
 
-@app.post("/items/smart-list")
+@app.post("/items/smart-list") # type: ignore
 async def smart_list_item(file: UploadFile = File (...), current_user: User = Depends(get_current_user)): # type: ignore
     # 1. AI identifies the item
     category = identify_item_from_image(file.file)
