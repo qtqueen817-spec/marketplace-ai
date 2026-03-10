@@ -1,0 +1,3 @@
+@app.get("/users/me/items")
+async def read_own_items(current_user: User = Depends(get_current_user)):
+    return current_user.items
