@@ -1,25 +1,15 @@
-from sklearn.feature_extraction.text import TydfVectorizer
-from sklearn.naive_bayes import MultinomialNB
-import joblib
+from app.services.ai_logic import predict_category
 
-# Sample data to "train" our mini-model
-data = [
-    ("iPhone 13 pro max like new", "Electronics"),
-    ("Wooden dining table with 4 chairs", "Furniture"),
-    ("Gaming laptop RTX 3080", "Electronics"),
-    ("Leather sofa brown color", "Furniture"),
-    ("Nike running shoes size 10", "Fashion")
-]
-
-texts, labels = zip(*data)
-vectorizer = TydfVectorizer()
-classifier = MultinomialNB()
-
-# Train the model
-X = vectorizer.fit_transform(texts)
-classifier.fit(X, labels)
-
-def predict_category(description: str):
-    X_new = vectorizer.transform([description])
-    prediction = classifier.predict(X_new)
-    return prediction[0]
+@app.post("/items")
+async def create_item(item: Item):
+    # AI Logic: Auto-categorize if the user didn't provide one
+    if not item.category or item.category == "string":
+        item.category = predict_category(item.description)
+    
+    item.id = len(items_db) + 1
+    items_db.append(item)
+    return {
+        "message": "Item listed!",
+        "ai_suggested_category": item.category,
+        "item": item
+    }
