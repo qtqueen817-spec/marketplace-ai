@@ -1,20 +1,5 @@
-services:
-  web:
+web:
     build: .
     ports:
       - "5421:5421"
-    env_file:
-      - .env
-    volumes:
-      - .:/app
-    depends_on:
-      - db
-
-  db:
-    image: postgres:15
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: marketplace
-    ports:
-      - "5432:5432"
+    command: tail -f /dev/null  # This keeps the container awake even if the app fails
