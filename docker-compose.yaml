@@ -1,11 +1,13 @@
 services:
   web:
-    build: .
-    ports:
+  environment:
+      - PYTHONPATH=/app
+  build: .
+  ports:
       - "5421:5421"
-    env_file:
+  env_file:
       - .env
-    depends_on:
+  epends_on:
       - db
 
   db:
