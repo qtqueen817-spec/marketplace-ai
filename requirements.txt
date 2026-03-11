@@ -11,3 +11,5 @@ python-jose[cryptography]
 passlib[bcrypt]
 torch
 transformers
+Pillow
+psycopg2-binary
