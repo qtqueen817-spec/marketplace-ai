@@ -1,20 +1,23 @@
-import torch
+import os
+import google.generativeai as genai
 from PIL import Image
-from transformers import CLIPProcessor, CLIPModel
+from dotenv import load_dotenv
 
-# Load a lightweight model that understands images and text
-model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32")
-processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
+load_dotenv()
 
-categories = ["electronics", "furniture", "fashion", "books", "auto"]
+# Configure the Gemini API
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+model = genai.GenerativeModel('gemini-1.5-flash')
 
-def identify_item_from_image(image_content):
-    image = Image.open(image_content)
-    inputs = processor(text=categories, images=image, return_tensors="pt", padding=True)
-    
-    outputs = model(**inputs)
-    logits_per_image = outputs.logits_per_image
-    probs = logits_per_image.softmax(dim=1) # get probabilities
-    
-    best_match_idx = probs.argmax().item()
-    return categories[best_match_idx]
+def identify_item_from_image(image_path: str):
+    """
+    Analyzes an image and returns a marketplace category.
+    """
+    try:
+        img = Image.open(image_path)
+        prompt = "Look at this item. Return only: Category (Electronics, Fashion, or Furniture) and a 1-word name."
+        
+        response = model.generate_content([prompt, img])
+        return response.text.strip()
+    except Exception as e:
+        return f"AI Error: {str(e)}"
