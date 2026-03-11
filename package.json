@@ -1,0 +1,21 @@
+{
+  "name": "marketplace-ai",
+  "version": "1.0.0",
+  "description": "Welcome to the Marketplace AI project! This documentation will guide you through the process of setting up your environment, installing the necessary dependencies, and understanding the project structure.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qtqueen817-spec/marketplace-ai.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/qtqueen817-spec/marketplace-ai/issues"
+  },
+  "homepage": "https://github.com/qtqueen817-spec/marketplace-ai#readme"
+}
