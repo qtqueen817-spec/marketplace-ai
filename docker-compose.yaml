@@ -1,14 +1,21 @@
-  services:
+services:
   web:
-  build: .
-  ports:
+    build: .
+    ports:
       - "5421:5421"
-  env_file:
+    env_file:
       - .env
-  depends_on:
+    depends_on:
       - db
 
   db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: marketplace
+    ports:
+      - "5432:5432"
     image: postgres:15
     environment:
       POSTGRES_USER: user
