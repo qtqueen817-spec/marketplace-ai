@@ -1,13 +1,11 @@
 services:
   web:
-  environment:
-      - PYTHONPATH=/app
-  build: .
-  ports:
+    build: .
+    ports:
       - "5421:5421"
-  env_file:
+    env_file:
       - .env
-  epends_on:
+    depends_on:
       - db
 
   db:
@@ -16,5 +14,3 @@ services:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
       POSTGRES_DB: marketplace
-    ports:
-      - "5432:5432"
