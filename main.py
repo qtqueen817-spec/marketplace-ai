@@ -1,6 +1,9 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends, UploadFile, File
+# Add this line right here:
+app = FastAPI() 
+
 from app.database import engine, Base
-# ... other imports
+# ... rest of your imports
 
 @app.post("/items/smart-list") # type: ignore
 async def smart_list_item(file: UploadFile = File (...), current_user: User = Depends(get_current_user)): # type: ignore
